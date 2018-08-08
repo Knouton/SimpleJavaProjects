@@ -6,7 +6,7 @@ import java.util.Properties;
 /* 
 Знакомство с properties
 */
-public class Solution {
+public class propertiesExample {
     public static Map<String, String> properties = new HashMap<>();
 
 
