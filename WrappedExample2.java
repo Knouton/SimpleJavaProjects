@@ -8,7 +8,7 @@ import java.io.PrintStream;
 
 Пример вывода:
 3 + 6 = 9
-public class Solution {
+public class WrappedExample2 {
     public static TestString testString = new TestString();
 
     public static void main(String[] args) {
