@@ -1,6 +1,6 @@
 import java.io.*;
 // Считываем имя файла, подменяем объект System.out написанной ридер-оберткой и выводим на консоль получившийся результат.
-public class Solution {
+public class WapperExample {
     public static TestString testString = new TestString();
 
     public static void main(String[] args) throws Exception{
