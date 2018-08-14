@@ -17,37 +17,36 @@ public class Solution {
 
     public static void main(String[] args) throws IOException {
     //Открываем поток для чтения имени файла
-        BufferedReader readerFileName = new BufferedReader(new InputStreamReader(System.in));
-            BufferedReader fileReader = new BufferedReader(new FileReader(readerFileName.readLine()));
-    //Читаем из файла, которое ввели
-        int numRead;
-        char[] buf = new char[1024];
-        StringBuilder builder = new StringBuilder();
-        while (fileReader.ready()) {
-            numRead = fileReader.read(buf);
-            String readData = String.valueOf(buf, 0, numRead);
-            builder.append(readData);
-        }
-        //Полученные слова из файла записываем в массив стрингов, разделяя слова по пробелу
-        String[] string = String.valueOf(builder).split("\\s+");
-        //Ищем обратные друг для друга слова и добавляем в result
-        for (int i = 0; i < string.length; i++) {
-            String s1 = new StringBuilder(string[i]).reverse().toString();
+        try (BufferedReader readerFileName = new BufferedReader(new InputStreamReader(System.in));
+             BufferedReader fileReader = new BufferedReader(new FileReader(readerFileName.readLine()));
+        ) {
+            //Читаем из файла, имя которого ввели
+            int numRead;
+            char[] buf = new char[1024];
+            StringBuilder builder = new StringBuilder();
+            while (fileReader.ready()) {
+                numRead = fileReader.read(buf);
+                String readData = String.valueOf(buf, 0, numRead);
+                builder.append(readData);
+            }
+            //Полученные слова из файла записываем в массив стрингов, разделяя слова по пробелу
+            String[] string = String.valueOf(builder).split("\\s+");
+            //Ищем обратные друг для друга слова и добавляем в result
+            for (int i = 0; i < string.length; i++) {
+                String s1 = new StringBuilder(string[i]).reverse().toString();
 
-            for (int j = 0; j < string.length; j++) {
+                for (int j = 0; j < string.length; j++) {
 
-                if (i != j && s1.equals(string[j])) {
-                    Pair pair1 = new Pair(string[i], string[j]);
-                    Pair pair2 = new Pair(string[j], string[i]);
-                    if( !result.contains(pair1) && !result.contains(pair2)){
-                        result.add(pair1);
+                    if (i != j && s1.equals(string[j])) {
+                        Pair pair1 = new Pair(string[i], string[j]);
+                        Pair pair2 = new Pair(string[j], string[i]);
+                        if (!result.contains(pair1) && !result.contains(pair2)) {
+                            result.add(pair1);
+                        }
                     }
                 }
             }
         }
-        //Закрываем потоки
-       readerFileName.close();
-       fileReader.close();
     }
 
     public static class Pair {
