@@ -12,27 +12,32 @@ public class WrappedExample2 {
     public static TestString testString = new TestString();
 
     public static void main(String[] args) {
-        PrintStream consoleStream = System.out;
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream stream = new PrintStream(outputStream);
-        System.setOut(stream);
-        testString.printSomething();
-        String result = outputStream.toString();
-        System.setOut(consoleStream);
-        String[] array = result.split(" ");
-        int x = Integer.valueOf(array[0]);
-        int y = Integer.valueOf(array[2]);
-        int z = 0;
-        if (array[1].equals("+")) {
-            z = x + y;
-        }
-        if (array[1].equals("-")) {
-            z = x - y;
-        }
-        if (array[1].equals("*")) {
-            z = x * y;
-        }
-        System.out.println(x + " " + array[1] + " " + y + " = " + z);
+        //используем try-resource для автоматического закрытия потоков
+            try (PrintStream consoleStream = System.out;
+                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                 PrintStream stream = new PrintStream(outputStream);
+                 ){
+                System.setOut(stream);
+                testString.printSomething();
+                String result = outputStream.toString();
+                System.setOut(consoleStream);
+                String[] array = result.split(" ");
+                int x = Integer.valueOf(array[0]);
+                int y = Integer.valueOf(array[2]);
+                int z = 0;
+                if (array[1].equals("+")) {
+                    z = x + y;
+                }
+                if (array[1].equals("-")) {
+                    z = x - y;
+                }
+                if (array[1].equals("*")) {
+                    z = x * y;
+                }
+                System.out.println(x + " " + array[1] + " " + y + " = " + z);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     public static class TestString {
