@@ -11,12 +11,18 @@ public class propertiesExample {
 
 
     public void fillInPropertiesMap() throws  Exception{
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String fileName = reader.readLine();
-        FileInputStream inputStream = new FileInputStream(fileName);
-        load(inputStream);
-        inputStream.close();
-        reader.close();
+        BufferedReader reader = null;
+        String fileName = null;
+        FileInputStream inputStream = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(System.in));
+            fileName = reader.readLine();
+            inputStream = new FileInputStream(fileName);
+        } finally {
+            load(inputStream);
+            inputStream.close();
+            reader.close();
+        }
     }
 
     public void save(OutputStream outputStream) throws Exception {
